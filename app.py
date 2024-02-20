@@ -4,11 +4,11 @@ import altair as alt
 import folium
 from streamlit_folium import st_folium
 
-from db import conn_str
+from db import get_db_conn
 
 st.title("Seattle Events")
-
-df = sqlio.read_sql_query("SELECT * FROM events", conn_str)
+conn = get_db_conn()
+df = sqlio.read_sql_query("SELECT * FROM events", conn)
 st.altair_chart(
     alt.Chart(df).mark_bar().encode(x="count()", y=alt.Y("category").sort('-x')).interactive(),
     use_container_width=True,
