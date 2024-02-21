@@ -7,11 +7,12 @@ import html
 import requests
 
 from db import get_db_conn
+import tempfile
 
 
 URL = 'https://visitseattle.org/events/page/'
-URL_LIST_FILE = './data/links.json'
-URL_DETAIL_FILE = './data/data.json'
+URL_LIST_FILE = tempfile.NamedTemporaryFile().name
+URL_DETAIL_FILE = tempfile.NamedTemporaryFile().name
 
 def list_links():
     res = requests.get(URL + '1/')
