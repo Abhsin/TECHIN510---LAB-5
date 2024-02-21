@@ -7,12 +7,11 @@ import html
 import requests
 
 from db import get_db_conn
-import tempfile
 
 
 URL = 'https://visitseattle.org/events/page/'
-URL_LIST_FILE = tempfile.NamedTemporaryFile().name
-URL_DETAIL_FILE = tempfile.NamedTemporaryFile().name
+URL_LIST_FILE = './data/links.json'
+URL_DETAIL_FILE = './data/data.json'
 
 def list_links():
     res = requests.get(URL + '1/')
@@ -71,7 +70,6 @@ def insert_to_pg():
         cur.execute(q, (url, row['title'], row['date'], row['venue'], row['category'], row['location']))
 
 if __name__ == '__main__':
-    insert_to_pg()
     list_links()
     get_detail_page()
-    
+    insert_to_pg()
